@@ -5,5 +5,8 @@ description = "Reinforcement Learning Final Project"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pandas>=2.3.0",
+    "jupyter>=1.1.1",
+    "obp>=0.4.1",
+    "odp>=0.3.1",
+    "pandas>=1.5.0,<2.0",
 ]
