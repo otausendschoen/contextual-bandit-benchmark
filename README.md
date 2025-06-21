@@ -16,6 +16,13 @@
 
 This project compares **classical contextual bandits** to **neural contextual bandits**, evaluating the performance differences between traditional and deep learning approaches.
 
+Specifically, we compare: 
+- (1) LinUCB
+- (2) NeuralUCB
+
+
+--- 
+
 **Dataset:** [Open Bandit Pipeline](https://github.com/st-tech/zr-obp) by Zozo Research
 
 ---
