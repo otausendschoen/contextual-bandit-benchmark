@@ -6,6 +6,10 @@
 **Institution:** Barcelona School of Economics  
 **Year:** 2025
 
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.12-blue?logo=python">
+</p>
+
 ---
 
 ## 📋 Project Overview
