@@ -31,11 +31,16 @@ This project compares **classical contextual bandits** to **neural contextual ba
 *Dongruo Zhou, Lihong Li, Quanquan Gu*  
 https://arxiv.org/abs/1911.04462
 
-Proposes NeuralUCB, leveraging neural networks for contextual bandits with near-optimal regret guarantee.
+Proposes NeuralUCB, using deep neural networks for contextual bandits with near-optimal regret guarantee.
+
+**Neural Thompson Sampling**  
+*Weitong Zhang, Dongruo Zhou, Lihong Li, Quanquan Gu, *  
+https://arxiv.org/pdf/2010.00827
+
+Proposes NeuralTS, using deep neural networks for both exploration and exploitation also with near-optimal regret guarantee. 
 
 ### Git Repos
-- https://github.com/wadx2019/Neural-Bandit
-    - implements all the above algorithms
+https://github.com/wadx2019/Neural-Bandit
 
 ### Dataset
 [Open Bandit Pipeline](https://github.com/st-tech/zr-obp) by Zozo Research
