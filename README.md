@@ -42,6 +42,7 @@ Proposes NeuralTS, using deep neural networks for both exploration and exploitat
 
 ### Git Repos
 https://github.com/wadx2019/Neural-Bandit
+
 https://github.com/sauxpa/neural_exploration
 
 ### Dataset
