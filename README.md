@@ -34,7 +34,7 @@ https://arxiv.org/abs/1911.04462
 Proposes NeuralUCB, using deep neural networks for contextual bandits with near-optimal regret guarantee.
 
 **Neural Thompson Sampling**  
-*Weitong Zhang, Dongruo Zhou, Lihong Li, Quanquan Gu, *  
+*Weitong Zhang, Dongruo Zhou, Lihong Li, Quanquan Gu*  
 https://arxiv.org/pdf/2010.00827
 
 Proposes NeuralTS, using deep neural networks for both exploration and exploitation also with near-optimal regret guarantee. 
