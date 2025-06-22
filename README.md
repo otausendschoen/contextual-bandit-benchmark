@@ -19,8 +19,8 @@ This project compares **classical contextual bandits** to **neural contextual ba
 - (0) Random Policy
 - (1) LinUCB (Oliver)
 - (2) NeuralUCB (Timothy)
-- (3) LinTS ?
-- (4) NeuralTS ?
+- [(3) LinTS ?]
+- [(4) NeuralTS ?]
 
 ---
 
@@ -42,6 +42,7 @@ Proposes NeuralTS, using deep neural networks for both exploration and exploitat
 
 ### Git Repos
 https://github.com/wadx2019/Neural-Bandit
+https://github.com/sauxpa/neural_exploration
 
 ### Dataset
 [Open Bandit Pipeline](https://github.com/st-tech/zr-obp) by Zozo Research
