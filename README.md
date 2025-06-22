@@ -15,7 +15,7 @@
 
 This project compares **classical contextual bandits** to **neural contextual bandits**, evaluating the performance differences between traditional and deep learning approaches.
 
-**Algorithms compared:**
+**Algorithms:**
 - (1) LinUCB (Oliver)
 - (2) NeuralUCB (Timothy)
 - (3) LinTS ?
