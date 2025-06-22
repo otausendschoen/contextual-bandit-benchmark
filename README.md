@@ -1,4 +1,4 @@
-# 🎯 Contextual Bandit Benchmarks
+# Contextual Bandit Benchmarks
 
 **Final Project - Reinforcement Learning**  
 **Authors:** Marvin Ernst, Oliver Tausendschoen & Timothy Cassel  
@@ -11,19 +11,19 @@
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 This project compares **classical contextual bandits** to **neural contextual bandits**, evaluating the performance differences between traditional and deep learning approaches.
 
 **Algorithms compared:**
-- (1) LinUCB
-- (2) LinTS (?)
-- (3) NeuralUCB
-- (4) NeuralTS (?)
+- (1) LinUCB (Oliver)
+- (2) NeuralUCB (Timothy)
+- (3) LinTS ?
+- (4) NeuralTS ?
 
 ---
 
-## 📚 Related Work
+## Related Work
 
 ### Papers
 
