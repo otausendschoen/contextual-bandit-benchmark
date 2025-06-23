@@ -1,43 +1,42 @@
-from load_opb import load_obp_dataset, preview_dataset
+
 import numpy as np
 
-# Load just 2 samples to inspect
-data = load_obp_dataset(n_rounds=2)
-preview_dataset(data)
+def linucb_step(x, true_action, true_reward, A, b, alpha):
+    n_actions = len(A)
+    p = []
+    for a in range(n_actions):
+        A_inv = np.linalg.inv(A[a]) # Inverse of the design matrix for action a
+        theta_hat = np.dot(A_inv, b[a]) # Ridge regression estimate
+        exploit = np.dot(x, theta_hat)# Predicted reward
+        explore = alpha * np.sqrt(np.dot(x, np.dot(A_inv, x)))# Exploration term, confidence bonus
+        p.append(exploit + explore)
 
-context = data["context"]
-action = data["action"]
-reward = data["reward"]
-n_actions = data["n_actions"]
+    chosen_action = np.argmax(p)
 
+    # Update model for chosen action
+    A[chosen_action] += np.outer(x, x) # Update design matrix for chosen action (XTX = sum x_i x_i^T for all i where action a was chosen)
+    b[chosen_action] += true_reward * x # Update feature vector for chosen action (X^T*y in regression terms)
 
-context_dim = context.shape[1]
-alpha = 1.0
+    return chosen_action, p[chosen_action]
 
-# A and b per action
-A = [np.identity(context_dim) for _ in range(n_actions)]
-b = [np.zeros(context_dim) for _ in range(n_actions)]
+def linucb_all(contexts, actions, rewards, A, b, alpha):
+    chosen_actions = []
+    ucb_scores = []
 
-x = context[0]               # the context vector
-true_action = action[0]      # what the behavior policy chose (not used in LinUCB decision)
-true_reward = reward[0]      # the observed reward (used in update)
+    for x, a_true, r in zip(contexts, actions, rewards):
+        a_chosen, score = linucb_step(x, a_true, r, A, b, alpha)
+        chosen_actions.append(a_chosen)
+        ucb_scores.append(score)
 
-# Compute UCB scores for each arm
-p = []
-for a in range(n_actions):
-        A_inv = np.linalg.inv(A[a])
-        theta_hat = np.dot(A_inv, b[a]) #ridge regression estimate
-        exploit = np.dot(x, theta_hat) #predicted reward
-        explore = alpha * np.sqrt(np.dot(x, np.dot(A_inv, x))) #exploration term
-        p.append(exploit + explore) #combine them
+    # Final theta estimates for each arm
+    theta_list = [np.dot(np.linalg.inv(A[i]), b[i]) for i in range(len(A))]
 
-chosen_action = np.argmax(p)
-print(f"Chosen action: {chosen_action}")
-print(f"True action taken in log: {true_action}")
-print(f"Observed reward: {true_reward}")
-
-A[chosen_action] += np.outer(x, x)
-b[chosen_action] += true_reward * x
-
-print(f"Updated A[{chosen_action}]:\n", A[chosen_action])
-print(f"Updated b[{chosen_action}]:", b[chosen_action])
+    return {
+        "theta": theta_list,
+        "A": A,
+        "b": b,
+        "chosen_actions": chosen_actions,
+        "true_actions": actions,
+        "rewards": rewards,
+        "ucb_scores": ucb_scores,
+    }
