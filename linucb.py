@@ -38,5 +38,5 @@ def linucb_all(contexts, actions, rewards, A, b, alpha):
         "chosen_actions": chosen_actions,
         "true_actions": actions,
         "rewards": rewards,
-        "ucb_scores": ucb_scores,
+        "ucb_scores": ucb_scores,   
     }
