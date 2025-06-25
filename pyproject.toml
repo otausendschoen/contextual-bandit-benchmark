@@ -8,7 +8,6 @@ dependencies = [
     "jupyter>=1.1.1",
     "numpy<2",
     "obp>=0.4.1",
-    "pandas<2",
-    "torch>=2.7.1",
-    "torchvision>=0.22.1",
+    "pandas==1.5.3",
+    "seaborn>=0.11"
 ]
