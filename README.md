@@ -18,15 +18,13 @@ This project compares **classical contextual bandits** to **neural contextual ba
 **Algorithms:**
 - (0) Random Policy
 - (1) LinUCB (Oliver)
-- (2) NeuralUCB (Timothy)
-- [(3) LinTS ?]
-- [(4) NeuralTS ?]
+- (2) LinTS
 
 ---
 
 ## Related Work
 
-### Papers
+### Papers (not doing NeuralUCB)
 
 **Neural Contextual Bandits with UCB-based Exploration**  
 *Dongruo Zhou, Lihong Li, Quanquan Gu*  
