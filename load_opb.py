@@ -1,46 +1,60 @@
 # load_opb.py
 # We will load the OBP dataset and do basic preprocessing if necessary.
 
-#%%
 from obp.dataset import OpenBanditDataset
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
-#%%
 
-def load_obp_dataset(campaign="all", behavior_policy="random", n_rounds = None):
+def load_obp_dataset(campaign="all", behavior_policy="random", 
+                     n_rounds=50000, use_raw_csv=False, data_path="./open_bandit_dataset"):
     """
-    Loads Open Bandit Pipeline data.
+    Load OBP dataset either via OBP API or from raw CSV.
 
     Args:
-        campaign (str): "all", "men", or "women"
-        behavior_policy (str): "random" or "bts"
+        campaign (str): 'all', 'men', or 'women'
+        behavior_policy (str): 'random' or 'bts'
+        n_rounds (int): Max number of rounds to load
+        use_raw_csv (bool): If True, loads full raw CSV via pandas
+        data_path (str): Path to local OBP data folder
 
     Returns:
-        dict: Contains contexts, actions, rewards, propensities, and number of actions
+        If use_raw_csv=False: dict with context, action, reward, pscore, n_actions
+        If use_raw_csv=True: pd.DataFrame with full raw data
     """
+    if use_raw_csv:
+        csv_path = f"{data_path}/{behavior_policy}/{campaign}/{campaign}.csv"
+        df = pd.read_csv(csv_path)
+        if n_rounds is not None and n_rounds < len(df):
+            df = df.iloc[:n_rounds]
+        print(f"Loaded raw OBP CSV: {len(df)} rows")
+        return df
+
+    # OBP-structured loading
+    data_path = Path(data_path)  # Convert to Path object
     dataset = OpenBanditDataset(
         behavior_policy=behavior_policy,
-        campaign=campaign
+        campaign=campaign,
+        data_path=data_path
     )
-
-    # Simulate bandit feedback (offline log)
     bandit_feedback = dataset.obtain_batch_bandit_feedback()
+    max_available = bandit_feedback["context"].shape[0]
 
-    # Structure it into a simpler format
+    if n_rounds is None:
+        n_rounds = max_available
+    elif n_rounds > max_available:
+        print(f"Warning: Requested {n_rounds} rounds, but only {max_available} available.")
+        n_rounds = max_available
+
     data = {
-        "context": bandit_feedback["context"],
-        "action": bandit_feedback["action"],
-        "reward": bandit_feedback["reward"],
-        "pscore": bandit_feedback["pscore"],
+        "context": bandit_feedback["context"][:n_rounds],
+        "action": bandit_feedback["action"][:n_rounds],
+        "reward": bandit_feedback["reward"][:n_rounds],
+        "pscore": bandit_feedback["pscore"][:n_rounds],
         "n_actions": dataset.n_actions,
     }
-    if n_rounds is not None:
-        # Limit the dataset to the first n_rounds
-        data["context"] = data["context"][:n_rounds]
-        data["action"] = data["action"][:n_rounds]
-        data["reward"] = data["reward"][:n_rounds]
-        data["pscore"] = data["pscore"][:n_rounds]
+    print(f"Loaded OBP dataset: {n_rounds} rounds, {data['n_actions']} actions")
     return data
 
 def preview_dataset(data):
@@ -69,12 +83,11 @@ def preview_dataset(data):
 # The user did not click on it (reward = 0)
 # The logging policy had a 1.25% probability of choosing that item in this context
 
-#%% Run as script
+# Run as script
 
 if __name__ == "__main__":
     data = load_obp_dataset()
     preview_dataset(data)
 
-# %%
 
 

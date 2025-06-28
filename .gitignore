@@ -96,5 +96,7 @@ dmypy.json
 
 open_bandit_dataset
 
-
-
+# CSV 
+*.csv
+# zip
+*.zip
