@@ -100,3 +100,7 @@ open_bandit_dataset
 *.csv
 # zip
 *.zip
+
+/processed/
+/processed_small/
+/processed_top3/

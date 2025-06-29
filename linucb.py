@@ -13,9 +13,10 @@ def linucb_step(x, true_action, true_reward, A, b, alpha):
 
     chosen_action = np.argmax(p)
 
-    # Update model for chosen action
-    A[chosen_action] += np.outer(x, x) # Update design matrix for chosen action (XTX = sum x_i x_i^T for all i where action a was chosen)
-    b[chosen_action] += true_reward * x # Update feature vector for chosen action (X^T*y in regression terms)
+    # Update model for chosen action only if it matches logged action:
+    if chosen_action == true_action:
+        A[chosen_action] += np.outer(x, x) # Update design matrix for chosen action (XTX = sum x_i x_i^T for all i where action a was chosen)
+        b[chosen_action] += true_reward * x # Update feature vector for chosen action (X^T*y in regression terms)
 
     return chosen_action, p[chosen_action]
 
