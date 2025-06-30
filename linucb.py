@@ -1,4 +1,4 @@
-
+#### LinUCB ####
 import numpy as np
 
 def linucb_step(x, true_action, true_reward, A, b, alpha):
